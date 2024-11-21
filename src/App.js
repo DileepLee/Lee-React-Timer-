@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function Counter() {
+
+  const [count, setCount] = useState(0);
+
+  const Increment = () => {
+    setCount((prevCount) => prevCount + 1) ;
+  }
+
+  useEffect(() => {
+    const interval = setInterval(Increment, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return {count}
+
 }
 
-export default App;
+function App() {
+  const {count} = Counter();
+  return(
+    <div className="bg-container">
+      <h1 className="heading">
+        Counter App
+      </h1>
+      <h1 className="timer"> Timer:<span className="span"> { count } </span> </h1>
+      <p className="phara">This Counter is created using setInterval method, for automatic Timer</p>
+    </div>
+  )
+}
+
+export default App
